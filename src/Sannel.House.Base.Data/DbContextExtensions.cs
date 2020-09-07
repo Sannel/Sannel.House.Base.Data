@@ -48,7 +48,7 @@ namespace Sannel.House.Base.Data
 			}
 			if (retry >= retryCount)
 			{
-				logger.LogCritical("Unable to establish connectiono to server");
+				logger.LogCritical("Unable to establish connection to server");
 				return false;
 			}
 			else
