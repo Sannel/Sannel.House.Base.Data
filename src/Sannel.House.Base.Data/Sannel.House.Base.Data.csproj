@@ -1,35 +1,51 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	  <TargetFrameworks>netstandard2.0;netstandard2.1;</TargetFrameworks>
-	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <AssemblyVersion>$(Major).$(Minor).$(Patch).$(BuildNumber)</AssemblyVersion>
-	  <FileVersion>$(Major).$(Minor).$(Patch).$(BuildNumber)</FileVersion>
-	  <Version Condition="'$(Configuration)' != 'Release'">$(Major).$(Minor).$(Patch)-beta</Version>
-	  <Version Condition="'$(Configuration)' == 'Release'">$(Major).$(Minor).$(Patch)</Version>
-	  <Authors>Adam Holt</Authors>
-	  <Company>Sannel Software, L.L.C.</Company>
-	  <Description>Helper and Extension Methods to help with the Data layer</Description>
-	  <PackageLicenseUrl></PackageLicenseUrl>
-	  <PackageProjectUrl>https://github.com/Sannel/Sannel.House.Base.Data</PackageProjectUrl>
-	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <PackageId>Sannel.House.Base.Data</PackageId>
-	  <Product>Sannel.House.Base.Data</Product>
-	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
-	  <RepositoryUrl>https://github.com/Sannel/Sannel.House.Base.Data</RepositoryUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net5.0</TargetFrameworks>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<AssemblyVersion>$(Major).$(Minor).$(Patch).$(BuildNumber)</AssemblyVersion>
+		<FileVersion>$(Major).$(Minor).$(Patch).$(BuildNumber)</FileVersion>
+		<Version Condition="'$(Configuration)' != 'Release'">$(Major).$(Minor).$(Patch)-beta</Version>
+		<Version Condition="'$(Configuration)' == 'Release'">$(Major).$(Minor).$(Patch)</Version>
+		<Authors>Adam Holt</Authors>
+		<Company>Sannel Software, L.L.C.</Company>
+		<Description>Helper and Extension Methods to help with the Data layer</Description>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/Sannel/Sannel.House.Base.Data</PackageProjectUrl>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>Sannel.House.Base.Data</PackageId>
+		<Product>Sannel.House.Base.Data</Product>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<RepositoryUrl>https://github.com/Sannel/Sannel.House.Base.Data</RepositoryUrl>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+	<PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.1' 
+				Or '$(TargetFramework)' == 'netcoreapp3.1' 
+				Or '$(TargetFramework)' == 'net5.0'">
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="3.1.0" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1' Or '$(TargetFramework)' == 'netstandard2.0'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.*" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.*" />
+		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="2.2.*" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'netstandard2.1'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.0" />
+		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="3.1.0" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-rc.*" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0-rc.*" />
+		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="5.0.0-rc.*" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>

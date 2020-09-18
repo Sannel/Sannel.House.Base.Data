@@ -86,18 +86,18 @@ namespace Sannel.House.Base.Data
 			using (var scope = provider.CreateScope())
 			{
 				var dbContext = scope.ServiceProvider.GetService<T>();
-				if(dbContext == null)
+				if (dbContext == null)
 				{
 					throw new NullReferenceException($"Cannot find a DbContext of type {typeof(T).FullName}");
 				}
 				try
 				{
-					var watch = new Stopwatch();
+					Stopwatch watch = new Stopwatch();
 					watch.Start();
 					await query(dbContext);
 					watch.Stop();
 
-					if(watch.Elapsed < TimeSpan.FromSeconds(DegradedThreshold))
+					if (watch.Elapsed < TimeSpan.FromSeconds(DegradedThreshold))
 					{
 						return HealthCheckResult.Healthy();
 					}
@@ -106,7 +106,7 @@ namespace Sannel.House.Base.Data
 						return HealthCheckResult.Degraded($"Query took {watch.ElapsedMilliseconds} milliseconds to execute");
 					}
 				}
-				catch(Exception ex)
+				catch (Exception ex)
 				{
 					return HealthCheckResult.Unhealthy("Exception during query", ex);
 				}
